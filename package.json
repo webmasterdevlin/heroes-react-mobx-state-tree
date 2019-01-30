@@ -24,12 +24,11 @@
   },
   "proxy": "http://localhost:5000",
   "scripts": {
-    "serve": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "backend": "json-server --watch db.json --port 5000",
-    "start": "concurrently \"npm run backend\" \"npm run serve\""
+    "backend": "json-server --watch db.json --port 5000"
   },
   "eslintConfig": {
     "extends": "react-app"
