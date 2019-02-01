@@ -6,7 +6,6 @@ import {
   removeHero,
   updateHero
 } from "./HeroService";
-import { HeroModel } from "../models/hero.model";
 
 export const Hero = types.model("Hero", {
   id: types.identifier,
@@ -49,7 +48,7 @@ export const HeroStore = types
         yield getHeroes().then(res => (heroes = res));
         applySnapshot(self.heroes, heroes.data);
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     // async loadHero(id: string) {
@@ -61,7 +60,7 @@ export const HeroStore = types
         yield getHero(id).then(res => (hero = res));
         self.hero = hero.data;
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     postHero: flow(function*(hero: any) {
@@ -69,7 +68,7 @@ export const HeroStore = types
         yield addHero(hero);
         self.heroes.unshift(hero);
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     putHero: flow(function*(hero: any) {
@@ -80,7 +79,7 @@ export const HeroStore = types
         const index = self.heroes.findIndex(h => h.id === hero.id);
         self.heroes[index] = hero;
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     deleteHero: flow(function*(id: string) {
@@ -89,7 +88,7 @@ export const HeroStore = types
         const index = self.heroes.findIndex(h => h.id === id);
         self.heroes.splice(index, 1);
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     })
   }))

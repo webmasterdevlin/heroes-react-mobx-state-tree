@@ -6,7 +6,6 @@ import {
   removeVillain,
   updateVillain
 } from "./VillainService";
-import { VillainModel } from "../models/villain.model";
 
 export const Villain = types.model("Villain", {
   id: types.identifier,
@@ -49,7 +48,7 @@ export const VillainStore = types
         yield getVillains().then(res => (villains = res));
         applySnapshot(self.villains, villains.data);
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     // async loadVillain(id: string) {
@@ -61,7 +60,7 @@ export const VillainStore = types
         yield getVillain(id).then(res => (villain = res));
         self.villain = villain.data;
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     postVillain: flow(function*(villain: any) {
@@ -69,7 +68,7 @@ export const VillainStore = types
         yield addVillain(villain);
         self.villains.unshift(villain);
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     putVillain: flow(function*(villain: any) {
@@ -80,7 +79,7 @@ export const VillainStore = types
         const index = self.villains.findIndex(h => h.id === villain.id);
         self.villains[index] = villain;
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     }),
     deleteVillain: flow(function*(id: string) {
@@ -89,7 +88,7 @@ export const VillainStore = types
         const index = self.villains.findIndex(h => h.id === id);
         self.villains.splice(index, 1);
       } catch (e) {
-        self.error = yield e;
+        self.error = e.message;
       }
     })
   }))
