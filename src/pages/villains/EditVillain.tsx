@@ -1,9 +1,8 @@
 import * as React from "react";
-
+import { VillainModel } from "../../models/villain.model";
 import { toJS } from "mobx";
 import { inject, observer } from "mobx-react";
 import VillainStore from "../../stores/VillainStore";
-import { VillainModel } from "../../models/villain.model";
 
 export interface EditVillainProps {
   VillainStore: typeof VillainStore;
@@ -13,13 +12,13 @@ export interface EditVillainProps {
 
 export interface EditVillainState {
   isSuccess: boolean;
-  villain: VillainModel;
+  Villain: VillainModel;
 }
 
 class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   state = {
     isSuccess: false,
-    villain: {
+    Villain: {
       id: "",
       firstName: "",
       lastName: "",
@@ -30,8 +29,8 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
 
   async componentDidMount() {
     await VillainStore.loadVillain(this.props.match.params.id);
-    this.setState({ villain: VillainStore.selectedVillain as VillainModel });
-    console.log(toJS(this.state.villain));
+    console.log("SELECTED_Villain", VillainStore.selectedVillain);
+    this.setState({ Villain: VillainStore.selectedVillain });
   }
 
   handleInputChange = ({
@@ -39,25 +38,25 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   }: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = input;
     this.setState({
-      villain: {
-        ...this.state.villain,
+      Villain: {
+        ...this.state.Villain,
         [name]: value
       }
     });
 
     // OR
-    // const updatedVillain: villain = { ...this.state.villain };
+    // const updatedVillain: Villain = { ...this.state.Villain };
     // const { name, value } = currentTarget;
     // updatedVillain[name] = value;
     // this.setState({
-    //   villain: updatedVillain
+    //   Villain: updatedVillain
     // });
   };
 
   handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    VillainStore.putVillain(this.state.villain);
+    VillainStore.putVillain(this.state.Villain);
 
     this.setState({ isSuccess: !this.state.isSuccess });
   };
@@ -67,12 +66,12 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   };
 
   public render() {
-    const { firstName, lastName, house, knownAs } = this.state.villain;
+    const { firstName, lastName, house, knownAs } = this.state.Villain;
     const { isSuccess } = this.state;
 
     return (
       <>
-        <h2>Edit villain</h2>
+        <h2>Edit Villain</h2>
         <div className="card my-3" style={{ width: "auto" }}>
           <form className="card-header" onSubmit={this.handleSubmit}>
             <section className="d-flex flex-row">
@@ -135,7 +134,7 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
         </div>
         {isSuccess && (
           <div className="alert alert-success col-md-3" role="alert">
-            This villain has been updated!
+            This Villain has been updated!
           </div>
         )}
       </>

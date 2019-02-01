@@ -2,15 +2,8 @@ import { BaseUrl } from "../utils/constants";
 import { HeroModel } from "../models/hero.model";
 import http from "./http-service";
 
-export function getHeroes(): Promise<any> {
-  return http
-    .get(BaseUrl.heroes)
-    .then(result => {
-      return result;
-    })
-    .catch(error => {
-      return Promise.reject(error);
-    });
+export async function getHeroes(): Promise<any> {
+  return await http.get(BaseUrl.heroes);
 }
 
 export async function getHero(id: string): Promise<any> {

@@ -75,8 +75,8 @@ class Villains extends React.Component<VillainsProps, VillainsState> {
   };
 
   public render() {
-    const { villains, error } = VillainStore;
-    console.table(toJS(villains)); // Mobx 5 uses proxies to implement the magic. toJS inspect the array
+    const { allVillains, error } = VillainStore;
+    console.table(toJS(allVillains)); // Mobx 5 uses proxies to implement the magic. toJS inspect the array
     return (
       <>
         <NewItemForm
@@ -93,7 +93,7 @@ class Villains extends React.Component<VillainsProps, VillainsState> {
             Something wrong happened: {toJS(error)}
           </div>
         )}
-        {villains.map(item => (
+        {allVillains.map(item => (
           <div key={item.id} className="card mt-3" style={{ width: "auto" }}>
             <div className="card-header">
               <h3 className="card-title">

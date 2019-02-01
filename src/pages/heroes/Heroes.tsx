@@ -55,12 +55,11 @@ class Heroes extends React.Component<Props, State> {
 
   onSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    await HeroStore.postHero(this.state.hero).then(() =>
-      HeroStore.loadHeroes()
-    );
-    // .then(() => heroStore.loadHeroes());
-    // is not necessary if you don't care about the id of the new created item
-    // An id is required when deleting or getting an item
+    await HeroStore.postHero(this.state.hero)
+      /* .then(() => HeroStore.loadHeroes());
+       is not necessary if you don't care about the id of the new created item
+       An id is required when deleting or getting an item */
+      .then(() => HeroStore.loadHeroes());
 
     const { isShowNewItemForm } = this.state;
     this.setState({ isShowNewItemForm: !isShowNewItemForm });
@@ -72,10 +71,8 @@ class Heroes extends React.Component<Props, State> {
   };
 
   public render() {
-    const heroes = HeroStore.allHeroes;
-    console.log("HEROES", heroes);
-    const error = "";
-    console.table(toJS(heroes)); // Mobx 5 uses proxies to implement the magic. toJS inspect the array
+    const { error, allHeroes } = HeroStore;
+    console.table(toJS(allHeroes)); // Mobx 5 uses proxies to implement the magic. toJS inspect
     return (
       <>
         <NewItemForm
@@ -92,7 +89,7 @@ class Heroes extends React.Component<Props, State> {
             Something wrong happened: {toJS(error)}
           </div>
         )}
-        {heroes.map(item => (
+        {allHeroes.map(item => (
           <div key={item.id} className="card mt-3" style={{ width: "auto" }}>
             <div className="card-header">
               <h3 className="card-title">

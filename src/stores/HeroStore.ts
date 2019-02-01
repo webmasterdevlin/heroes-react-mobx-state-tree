@@ -6,12 +6,9 @@ import {
   removeHero,
   updateHero
 } from "./HeroService";
-import { toJS } from "mobx";
-import { array } from "prop-types";
 import { HeroModel } from "../models/hero.model";
 
 export const Hero = types.model("Hero", {
-  key: types.string,
   id: types.identifier,
   firstName: types.string,
   lastName: types.string,
@@ -22,7 +19,13 @@ export const Hero = types.model("Hero", {
 export const HeroStore = types
   .model("HeroStore", {
     heroes: types.optional(types.array(Hero), []),
-    hero: types.model(),
+    hero: types.model("Hero", {
+      id: types.identifier,
+      firstName: types.string,
+      lastName: types.string,
+      house: types.string,
+      knownAs: types.string
+    }),
     error: types.string
   })
   .views(self => ({
@@ -39,71 +42,66 @@ export const HeroStore = types
       return self.heroes;
     }
   }))
-  .actions(function(self) {
-    async function fetchHeroes(): Promise<any> {
-      const { data } = await getHeroes();
-      return data;
-    }
-    return {
-      // async loadHeroes() {
-      //   try {
-      //     const data = await fetchHeroes();
-      //     applySnapshot(self.heroes, data);
-      //   } catch (e) {
-      //     self.error = ` error`;
-      //   }
-      // },
-
-      loadHeroes: flow(function*() {
+  .actions(self => ({
+    loadHeroes: flow(function*() {
+      try {
         let heroes: any = [];
         yield getHeroes().then(res => (heroes = res));
-
-        console.table(heroes.data);
-        self.heroes = heroes.data;
-        // self.heroes = JSON.parse(heroes.data);
-        // applySnapshot(self.heroes, toJS(heroes.data));
-      }),
-
-      async loadHero(id: string) {
-        try {
-          const { data } = await getHero(id);
-          self.hero = data;
-        } catch (e) {
-          self.error = ` error`;
-        }
-      },
-      async postHero(hero: any) {
-        try {
-          await addHero(hero).then(() => self.heroes.unshift(hero));
-        } catch (e) {
-          self.error = ` error`;
-        }
-      },
-      async putHero(hero: any) {
-        try {
-          await updateHero(hero);
-          // Applicable if a component(s) of the current page is rendering the array of heroes
-          // This will update the properties hero inside the array of heroes
-          const index = self.heroes.findIndex(h => h.id === hero.id);
-          self.heroes[index] = hero;
-        } catch (e) {
-          self.error = ` error`;
-        }
-      },
-      async deleteHero(id: string) {
-        try {
-          await removeHero(id);
-          const index = self.heroes.findIndex(h => h.id === id);
-          self.heroes.splice(index, 1);
-        } catch (e) {
-          self.error = ` error`;
-        }
+        applySnapshot(self.heroes, heroes.data);
+      } catch (e) {
+        self.error = yield e;
       }
-    };
-  })
+    }),
+    // async loadHero(id: string) {
+    //   self.hero = await getHero(id);
+    // },
+    loadHero: flow(function*(id: string) {
+      try {
+        let hero: any = {};
+        yield getHero(id).then(res => (hero = res));
+        self.hero = hero.data;
+      } catch (e) {
+        self.error = yield e;
+      }
+    }),
+    postHero: flow(function*(hero: any) {
+      try {
+        yield addHero(hero);
+        self.heroes.unshift(hero);
+      } catch (e) {
+        self.error = yield e;
+      }
+    }),
+    putHero: flow(function*(hero: any) {
+      try {
+        yield updateHero(hero);
+        // Applicable if a component(s) of the current page is rendering the array of heroes
+        // This will update the properties hero inside the array of heroes
+        const index = self.heroes.findIndex(h => h.id === hero.id);
+        self.heroes[index] = hero;
+      } catch (e) {
+        self.error = yield e;
+      }
+    }),
+    deleteHero: flow(function*(id: string) {
+      try {
+        yield removeHero(id);
+        const index = self.heroes.findIndex(h => h.id === id);
+        self.heroes.splice(index, 1);
+      } catch (e) {
+        self.error = yield e;
+      }
+    })
+  }))
   .create({
     heroes: [],
-    hero: {},
+    hero: {
+      id: "",
+      firstName: "",
+      lastName: "",
+      house: "",
+      knownAs: ""
+    },
     error: ""
   });
 

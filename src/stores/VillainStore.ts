@@ -1,4 +1,4 @@
-import { types } from "mobx-state-tree";
+import { types, flow, applySnapshot } from "mobx-state-tree";
 import {
   addVillain,
   getVillain,
@@ -6,9 +6,9 @@ import {
   removeVillain,
   updateVillain
 } from "./VillainService";
+import { VillainModel } from "../models/villain.model";
 
 export const Villain = types.model("Villain", {
-  key: types.string,
   id: types.identifier,
   firstName: types.string,
   lastName: types.string,
@@ -18,8 +18,14 @@ export const Villain = types.model("Villain", {
 
 export const VillainStore = types
   .model("VillainStore", {
-    villains: types.array(Villain),
-    villain: types.model(),
+    villains: types.optional(types.array(Villain), []),
+    villain: types.model("Villain", {
+      id: types.identifier,
+      firstName: types.string,
+      lastName: types.string,
+      house: types.string,
+      knownAs: types.string
+    }),
     error: types.string
   })
   .views(self => ({
@@ -37,53 +43,65 @@ export const VillainStore = types
     }
   }))
   .actions(self => ({
-    async loadVillains() {
+    loadVillains: flow(function*() {
       try {
-        const { data } = await getVillains();
-        self.villains = data.reverse();
+        let villains: any = [];
+        yield getVillains().then(res => (villains = res));
+        applySnapshot(self.villains, villains.data);
       } catch (e) {
-        self.error = ` error`;
+        self.error = yield e;
       }
-    },
-    async loadVillain(id: string) {
+    }),
+    // async loadVillain(id: string) {
+    //   self.Villain = await getVillain(id);
+    // },
+    loadVillain: flow(function*(id: string) {
       try {
-        const { data } = await getVillain(id);
-        self.villain = data;
+        let villain: any = {};
+        yield getVillain(id).then(res => (villain = res));
+        self.villain = villain.data;
       } catch (e) {
-        self.error = ` error`;
+        self.error = yield e;
       }
-    },
-    async postVillain(villain: any) {
+    }),
+    postVillain: flow(function*(villain: any) {
       try {
-        await addVillain(villain).then(() => self.villains.unshift(villain));
+        yield addVillain(villain);
+        self.villains.unshift(villain);
       } catch (e) {
-        self.error = ` error`;
+        self.error = yield e;
       }
-    },
-    async putVillain(villain: any) {
+    }),
+    putVillain: flow(function*(villain: any) {
       try {
-        await updateVillain(villain);
+        yield updateVillain(villain);
         // Applicable if a component(s) of the current page is rendering the array of villains
-        // This will update the properties villain  inside the array of villains
-        const index = self.villains.findIndex(v => v.id === villain.id);
+        // This will update the properties Villain inside the array of villains
+        const index = self.villains.findIndex(h => h.id === villain.id);
         self.villains[index] = villain;
       } catch (e) {
-        self.error = ` error`;
+        self.error = yield e;
       }
-    },
-    async deleteVillain(id: string) {
+    }),
+    deleteVillain: flow(function*(id: string) {
       try {
-        await removeVillain(id);
-        const index = self.villains.findIndex(v => v.id === id);
+        yield removeVillain(id);
+        const index = self.villains.findIndex(h => h.id === id);
         self.villains.splice(index, 1);
       } catch (e) {
-        self.error = ` error`;
+        self.error = yield e;
       }
-    }
+    })
   }))
   .create({
     villains: [],
-    villain: {},
+    villain: {
+      id: "",
+      firstName: "",
+      lastName: "",
+      house: "",
+      knownAs: ""
+    },
     error: ""
   });
 
