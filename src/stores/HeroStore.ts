@@ -1,4 +1,4 @@
-import { types, flow, applySnapshot } from "mobx-state-tree";
+import { types, flow, applySnapshot, onPatch } from "mobx-state-tree";
 import {
   addHero,
   getHero,
@@ -7,7 +7,6 @@ import {
   updateHero
 } from "./HeroService";
 
-import { onPatch } from "mobx-state-tree";
 import makeInspectable from "mobx-devtools-mst";
 
 export const Hero = types.model("Hero", {
@@ -18,7 +17,7 @@ export const Hero = types.model("Hero", {
   knownAs: types.string
 });
 
-export const HeroStore = types
+const HeroStore = types
   .model("HeroStore", {
     heroes: types.optional(types.array(Hero), []),
     hero: types.model("Hero", {

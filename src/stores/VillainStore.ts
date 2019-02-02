@@ -16,7 +16,7 @@ export const Villain = types.model("Villain", {
   knownAs: types.string
 });
 
-export const VillainStore = types
+const VillainStore = types
   .model("VillainStore", {
     villains: types.optional(types.array(Villain), []),
     villain: types.model("Villain", {
@@ -104,10 +104,11 @@ export const VillainStore = types
     },
     error: ""
   });
+
 // Debugging tools
 onPatch(VillainStore, patch => {
   console.log(patch);
 });
-
 makeInspectable(VillainStore);
+
 export default VillainStore;
