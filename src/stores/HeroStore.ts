@@ -7,6 +7,9 @@ import {
   updateHero
 } from "./HeroService";
 
+import { onPatch } from "mobx-state-tree";
+import makeInspectable from "mobx-devtools-mst";
+
 export const Hero = types.model("Hero", {
   id: types.identifier,
   firstName: types.string,
@@ -103,5 +106,11 @@ export const HeroStore = types
     },
     error: ""
   });
+
+// Debugging tools
+onPatch(HeroStore, patch => {
+  console.log(patch);
+});
+makeInspectable(HeroStore);
 
 export default HeroStore;

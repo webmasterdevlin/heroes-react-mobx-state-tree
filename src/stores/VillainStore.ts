@@ -1,4 +1,4 @@
-import { types, flow, applySnapshot } from "mobx-state-tree";
+import { types, flow, applySnapshot, onPatch } from "mobx-state-tree";
 import {
   addVillain,
   getVillain,
@@ -6,6 +6,7 @@ import {
   removeVillain,
   updateVillain
 } from "./VillainService";
+import makeInspectable from "mobx-devtools-mst";
 
 export const Villain = types.model("Villain", {
   id: types.identifier,
@@ -103,5 +104,10 @@ export const VillainStore = types
     },
     error: ""
   });
+// Debugging tools
+onPatch(VillainStore, patch => {
+  console.log(patch);
+});
 
+makeInspectable(VillainStore);
 export default VillainStore;

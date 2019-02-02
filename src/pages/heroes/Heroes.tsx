@@ -72,7 +72,6 @@ class Heroes extends React.Component<Props, State> {
 
   public render() {
     const { error, allHeroes } = HeroStore;
-    console.table(toJS(allHeroes)); // Mobx 5 uses proxies to implement the magic. toJS inspect
     return (
       <>
         <NewItemForm

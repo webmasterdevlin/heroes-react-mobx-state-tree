@@ -76,7 +76,6 @@ class Villains extends React.Component<VillainsProps, VillainsState> {
 
   public render() {
     const { allVillains, error } = VillainStore;
-    console.table(toJS(allVillains)); // Mobx 5 uses proxies to implement the magic. toJS inspect the array
     return (
       <>
         <NewItemForm
