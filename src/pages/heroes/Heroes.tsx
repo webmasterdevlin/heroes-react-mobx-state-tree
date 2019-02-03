@@ -31,10 +31,10 @@ class Heroes extends React.Component<Props, State> {
     await HeroStore.loadHeroes();
   }
 
-  removeItem = async (id: string, name: string) => {
-    const isConfirmed = window.confirm(`Delete ${name}?`);
+  removeItem = async (hero: HeroModel) => {
+    const isConfirmed = window.confirm(`Delete ${hero.name}?`);
     if (!isConfirmed) return;
-    await HeroStore.deleteHero(id);
+    await HeroStore.deleteHero(hero);
   };
 
   onChange = ({ currentTarget: input }: React.FormEvent<HTMLInputElement>) => {
@@ -100,7 +100,7 @@ class Heroes extends React.Component<Props, State> {
             <section className="card-body">
               <div className="row">
                 <button
-                  onClick={() => this.removeItem(item.id, item.firstName)}
+                  onClick={() => this.removeItem(item)}
                   className="btn btn-outline-danger card-link col text-center"
                 >
                   <span className="fas fa-eraser  mr-2" />

@@ -1,27 +1,6 @@
 {
   "heroes": [
     {
-      "id": "D286D700-52C2-F159-5A91-5F3E84C306BA",
-      "firstName": "Audra",
-      "lastName": "Serrano",
-      "house": "Mexico",
-      "knownAs": "Dolor Sit Consulting"
-    },
-    {
-      "id": "408EEED5-1310-9C6C-104B-3AE2CC9D826B",
-      "firstName": "Leilani",
-      "lastName": "Conley",
-      "house": "Spain",
-      "knownAs": "Ornare Industries"
-    },
-    {
-      "id": "9D3809F9-5245-4C71-12BB-2940D6F45329",
-      "firstName": "Rashad",
-      "lastName": "Gibson",
-      "house": "Puerto Rico",
-      "knownAs": "Amet Risus LLC"
-    },
-    {
       "id": "1BA234A3-E164-E67F-3AC0-C566F45AD141",
       "firstName": "Silas",
       "lastName": "Lloyd",
@@ -386,13 +365,6 @@
       "knownAs": "Augue Eu Tellus Industries"
     },
     {
-      "id": "8B497235-ECED-AFDF-68FB-EC6D89D2B6FA",
-      "firstName": "Adrian",
-      "lastName": "Barry",
-      "house": "Haiti",
-      "knownAs": "Suspendisse Associates"
-    },
-    {
       "id": "B0378101-F405-22A9-6950-CEAC51D1E57E",
       "firstName": "Addison",
       "lastName": "Mueller",
@@ -610,13 +582,6 @@
       "knownAs": "Montes Nascetur Incorporated"
     },
     {
-      "id": "39BED28A-D569-5E50-EF6D-232401DF2AA1",
-      "firstName": "Erin",
-      "lastName": "Blackburn",
-      "house": "Bangladesh",
-      "knownAs": "Nisi LLP"
-    },
-    {
       "id": "0B7FD5DB-CEF7-9A23-135A-129A9C8952D5",
       "firstName": "Portia",
       "lastName": "Maddox",
@@ -650,20 +615,6 @@
       "lastName": "Hood",
       "house": "Iran",
       "knownAs": "Nulla Integer Urna Limited"
-    },
-    {
-      "id": "B4EA9D32-0C7C-DF14-5184-683286B7AAA5",
-      "firstName": "Fletcher",
-      "lastName": "Stout",
-      "house": "Zambia",
-      "knownAs": "Dui Cras Industries"
-    },
-    {
-      "id": "3CB15A59-6B9D-1522-66B1-4FA4967701AF",
-      "firstName": "Toddy",
-      "lastName": "Giles",
-      "house": "Afghanistan",
-      "knownAs": "Dui Suspendisse PC"
     }
   ],
   "villains": [

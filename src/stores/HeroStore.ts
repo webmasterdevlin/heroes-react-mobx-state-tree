@@ -1,4 +1,4 @@
-import { types, flow, applySnapshot, onPatch } from "mobx-state-tree";
+import { types, flow, applySnapshot, onPatch, destroy } from "mobx-state-tree";
 import {
   addHero,
   getHero,
@@ -8,6 +8,7 @@ import {
 } from "./HeroService";
 
 import makeInspectable from "mobx-devtools-mst";
+import { HeroModel } from "../models/hero.model";
 
 export const Hero = types.model("Hero", {
   id: types.identifier,
@@ -84,11 +85,14 @@ const HeroStore = types
         self.error = e.message;
       }
     }),
-    deleteHero: flow(function*(id: string) {
+    deleteHero: flow(function*(hero: HeroModel) {
       try {
-        yield removeHero(id);
-        const index = self.heroes.findIndex(h => h.id === id);
-        self.heroes.splice(index, 1);
+        yield removeHero(hero);
+        /*
+         const index = self.heroes.findIndex(h => h.id === id);
+         self.heroes.splice(index, 1);
+         */
+        destroy(hero as any); // no need for splice if using destroy
       } catch (e) {
         self.error = e.message;
       }

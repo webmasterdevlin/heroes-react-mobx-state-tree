@@ -18,6 +18,6 @@ export async function updateHero(hero: HeroModel): Promise<any> {
   return await http.put(`${BaseUrl.heroes}${hero.id}`, hero);
 }
 
-export async function removeHero(id: string): Promise<any> {
-  return await http.delete(`${BaseUrl.heroes}${id}`);
+export async function removeHero(hero: HeroModel): Promise<any> {
+  return await http.delete(`${BaseUrl.heroes}${hero.id}`);
 }
