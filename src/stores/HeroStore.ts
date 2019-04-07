@@ -1,4 +1,11 @@
-import { types, flow, applySnapshot, onPatch, destroy } from "mobx-state-tree";
+import {
+  types,
+  flow,
+  applySnapshot,
+  onPatch,
+  destroy,
+  IAnyStateTreeNode
+} from "mobx-state-tree";
 import {
   addHero,
   getHero,
@@ -47,21 +54,15 @@ const HeroStore = types
   .actions(self => ({
     loadHeroes: flow(function*() {
       try {
-        let heroes: any = [];
-        yield getHeroes().then(res => (heroes = res));
-        applySnapshot(self.heroes, heroes.data);
+        applySnapshot(self.heroes, (yield getHeroes()).data);
+        // alternative: self.heroes = (yield getHeroes()).data;
       } catch (e) {
         self.error = e.message;
       }
     }),
-    // async loadHero(id: string) {
-    //   self.hero = await getHero(id);
-    // },
     loadHero: flow(function*(id: string) {
       try {
-        let hero: any = {};
-        yield getHero(id).then(res => (hero = res));
-        self.hero = hero.data;
+        self.hero = (yield getHero(id)).data;
       } catch (e) {
         self.error = e.message;
       }
@@ -77,8 +78,8 @@ const HeroStore = types
     putHero: flow(function*(hero: any) {
       try {
         yield updateHero(hero);
-        // Applicable if a component(s) of the current page is rendering the array of heroes
-        // This will update the properties hero inside the array of heroes
+        /* Applicable if a component(s) of the current page is rendering the array of heroes
+        This will update the properties hero inside the array of heroes */
         const index = self.heroes.findIndex(h => h.id === hero.id);
         self.heroes[index] = hero;
       } catch (e) {
@@ -88,11 +89,9 @@ const HeroStore = types
     deleteHero: flow(function*(hero: HeroModel) {
       try {
         yield removeHero(hero);
-        /*
-         const index = self.heroes.findIndex(h => h.id === id);
-         self.heroes.splice(index, 1);
-         */
-        destroy(hero as any); // no need for splice if using destroy
+        /* const index = self.heroes.findIndex(h => h.id === id);
+         self.heroes.splice(index, 1); */
+        destroy(hero as IAnyStateTreeNode); // no need for splice if using destroy
       } catch (e) {
         self.error = e.message;
       }
