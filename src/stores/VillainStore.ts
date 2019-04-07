@@ -45,21 +45,14 @@ const VillainStore = types
   .actions(self => ({
     loadVillains: flow(function*() {
       try {
-        let villains: any = [];
-        yield getVillains().then(res => (villains = res));
-        applySnapshot(self.villains, villains.data);
+        applySnapshot(self.villains, (yield getVillains()).data);
       } catch (e) {
         self.error = e.message;
       }
     }),
-    // async loadVillain(id: string) {
-    //   self.Villain = await getVillain(id);
-    // },
     loadVillain: flow(function*(id: string) {
       try {
-        let villain: any = {};
-        yield getVillain(id).then(res => (villain = res));
-        self.villain = villain.data;
+        self.villain = (yield getVillain(id)).data;
       } catch (e) {
         self.error = e.message;
       }
