@@ -13,7 +13,7 @@ class App extends Component {
           <HeaderNav />
           <div className="container">
             <Router />
-            {process.env.NODE_ENV !== "development" ? <DevTools /> : null}
+            {process.env.NODE_ENV === "development" ? <DevTools /> : null}
           </div>
         </>
       </BrowserRouter>
