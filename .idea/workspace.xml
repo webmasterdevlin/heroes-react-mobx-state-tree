@@ -12,7 +12,17 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/stores/HeroService.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="341">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -47,10 +57,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1681" />
+    <option name="x" value="102" />
     <option name="y" value="23" />
     <option name="width" value="1418" />
-    <option name="height" value="1004" />
+    <option name="height" value="981" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -58,7 +68,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -71,16 +80,11 @@
               <item name="heroes-react-mobx-state-tree" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="heroes-react-mobx-state-tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="heroes-react-mobx-state-tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="stores" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -127,6 +131,7 @@
       <workItem from="1549148115916" duration="257000" />
       <workItem from="1549182858518" duration="2590000" />
       <workItem from="1554653025824" duration="806000" />
+      <workItem from="1554677868752" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="finished Mobx Store">
       <created>1548980465201</created>
@@ -174,10 +179,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15564000" />
+    <option name="totallyTimeSpent" value="16188000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1681" y="23" width="1418" height="1004" extended-state="0" />
+    <frame x="102" y="23" width="1418" height="981" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24624194" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -194,7 +200,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50060385" side_tool="true" weight="0.31428573" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49939615" visible="true" weight="0.3049482" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49939615" visible="true" weight="0.31323877" />
       <window_info anchor="bottom" id="Messages" order="12" visible="true" weight="0.32894737" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -356,17 +362,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stores/HeroService.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/stores/HeroStore.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="922">
           <caret line="61" column="7" lean-forward="true" selection-start-line="61" selection-start-column="7" selection-end-line="61" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stores/HeroService.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>
     </entry>
