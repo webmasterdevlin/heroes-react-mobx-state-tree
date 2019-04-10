@@ -7,25 +7,14 @@ import {
   updateVillain
 } from "./VillainService";
 import makeInspectable from "mobx-devtools-mst";
+import { VillainProperties } from "../models/types/villain.properties";
 
-export const Villain = types.model("Villain", {
-  id: types.identifier,
-  firstName: types.string,
-  lastName: types.string,
-  house: types.string,
-  knownAs: types.string
-});
+export const Villain = types.model("Villain", VillainProperties);
 
 const VillainStore = types
   .model("VillainStore", {
     villains: types.optional(types.array(Villain), []),
-    villain: types.model("Villain", {
-      id: types.identifier,
-      firstName: types.string,
-      lastName: types.string,
-      house: types.string,
-      knownAs: types.string
-    }),
+    villain: types.model("Villain", VillainProperties),
     error: types.string
   })
   .views(self => ({
