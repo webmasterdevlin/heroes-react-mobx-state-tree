@@ -1,38 +1,32 @@
 import * as React from "react";
 import { inject, observer } from "mobx-react";
 import HeroStore from "./../../stores/HeroStore";
-import { HeroModel } from "../../models/hero.model";
 import { Link } from "react-router-dom";
 import { toJS } from "mobx";
 import NewItemForm from "../../common-components/NewItemForm";
+import { IHero } from "../../types/hero.type";
 
 export interface Props {
   HeroStore: typeof HeroStore;
 }
 
 export interface State {
-  hero: HeroModel;
+  hero: IHero;
   isShowNewItemForm: boolean;
 }
 
 class Heroes extends React.Component<Props, State> {
   state = {
     isShowNewItemForm: false,
-    hero: {
-      id: "",
-      firstName: "",
-      lastName: "",
-      house: "",
-      knownAs: ""
-    } as HeroModel
+    hero: {} as IHero
   };
   async componentDidMount() {
     const { HeroStore } = this.props;
     await HeroStore.loadHeroes();
   }
 
-  removeItem = async (hero: HeroModel) => {
-    const isConfirmed = window.confirm(`Delete ${hero.name}?`);
+  removeItem = async (hero: IHero) => {
+    const isConfirmed = window.confirm(`Delete ${hero.firstName}?`);
     if (!isConfirmed) return;
     await HeroStore.deleteHero(hero);
   };
@@ -88,7 +82,7 @@ class Heroes extends React.Component<Props, State> {
             Something wrong happened: {toJS(error)}
           </div>
         )}
-        {heroes.map(item => (
+        {heroes.map((item: any) => (
           <div key={item.id} className="card mt-3" style={{ width: "auto" }}>
             <div className="card-header">
               <h3 className="card-title">

@@ -1,8 +1,7 @@
 import * as React from "react";
-import { HeroModel } from "../../models/hero.model";
-import { toJS } from "mobx";
 import { inject, observer } from "mobx-react";
 import HeroStore from "../../stores/HeroStore";
+import { IHero } from "../../types/hero.type";
 
 export interface EditHeroProps {
   HeroStore: typeof HeroStore;
@@ -11,25 +10,20 @@ export interface EditHeroProps {
 }
 
 export interface EditHeroState {
+  hero: IHero;
   isSuccess: boolean;
-  hero: HeroModel;
 }
 
 class EditHero extends React.Component<EditHeroProps, EditHeroState> {
   state = {
     isSuccess: false,
-    hero: {
-      id: "",
-      firstName: "",
-      lastName: "",
-      house: "",
-      knownAs: ""
-    } as HeroModel
+    hero: {} as any
   };
 
   async componentDidMount() {
     await HeroStore.loadHero(this.props.match.params.id);
-    this.setState({ hero: HeroStore.hero });
+    const hero = HeroStore.hero as any;
+    this.setState({ hero });
   }
 
   handleInputChange = ({

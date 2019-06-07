@@ -15,8 +15,7 @@ import {
 } from "./HeroService";
 
 import makeInspectable from "mobx-devtools-mst";
-import { HeroModel } from "../models/hero.model";
-import { HeroType, HeroInitialState } from "../types/hero.type";
+import { HeroType, HeroInitialState, IHero } from "../types/hero.type";
 
 export const Hero = types.model("Hero", HeroType);
 
@@ -67,7 +66,7 @@ const HeroStore = types
         self.error = e.message;
       }
     }),
-    deleteHero: flow(function*(hero: HeroModel) {
+    deleteHero: flow(function*(hero: IHero) {
       try {
         yield removeHero(hero);
         /* const index = self.heroes.findIndex(h => h.id === id);

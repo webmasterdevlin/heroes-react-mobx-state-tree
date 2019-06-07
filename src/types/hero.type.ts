@@ -1,12 +1,12 @@
-import { types } from "mobx-state-tree";
+import { types, Instance } from "mobx-state-tree";
 
 // For Mobx purposes
 export const HeroType = {
-  id: types.identifier,
-  firstName: types.string,
-  lastName: types.string,
-  house: types.string,
-  knownAs: types.string
+  id: types.optional(types.string, ""),
+  firstName: types.optional(types.string, ""),
+  lastName: types.optional(types.string, ""),
+  house: types.optional(types.string, ""),
+  knownAs: types.optional(types.string, "")
 };
 
 export const HeroInitialState = {
@@ -16,3 +16,5 @@ export const HeroInitialState = {
   house: "",
   knownAs: ""
 };
+
+export type IHero = Instance<typeof HeroType>;

@@ -1,8 +1,7 @@
 import * as React from "react";
-import { VillainModel } from "../../models/villain.model";
-import { toJS } from "mobx";
 import { inject, observer } from "mobx-react";
 import VillainStore from "../../stores/VillainStore";
+import { IVillain } from "../../types/villain.type";
 
 export interface EditVillainProps {
   VillainStore: typeof VillainStore;
@@ -12,25 +11,19 @@ export interface EditVillainProps {
 
 export interface EditVillainState {
   isSuccess: boolean;
-  Villain: VillainModel;
+  villain: IVillain;
 }
 
 class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   state = {
     isSuccess: false,
-    Villain: {
-      id: "",
-      firstName: "",
-      lastName: "",
-      house: "",
-      knownAs: ""
-    } as VillainModel
+    villain: {} as IVillain
   };
 
   async componentDidMount() {
     await VillainStore.loadVillain(this.props.match.params.id);
-    console.log("SELECTED_Villain", VillainStore.villain);
-    this.setState({ Villain: VillainStore.villain });
+    const villain = VillainStore.villain as any;
+    this.setState({ villain });
   }
 
   handleInputChange = ({
@@ -38,8 +31,8 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   }: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = input;
     this.setState({
-      Villain: {
-        ...this.state.Villain,
+      villain: {
+        ...this.state.villain,
         [name]: value
       }
     });
@@ -56,7 +49,7 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    VillainStore.putVillain(this.state.Villain);
+    VillainStore.putVillain(this.state.villain);
 
     this.setState({ isSuccess: !this.state.isSuccess });
   };
@@ -66,7 +59,7 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
   };
 
   public render() {
-    const { firstName, lastName, house, knownAs } = this.state.Villain;
+    const { firstName, lastName, house, knownAs } = this.state.villain;
     const { isSuccess } = this.state;
 
     return (

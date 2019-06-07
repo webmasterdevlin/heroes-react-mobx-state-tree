@@ -1,5 +1,4 @@
 import * as React from "react";
-import { VillainModel } from "../../models/villain.model";
 import NewItemForm from "../../common-components/NewItemForm";
 import VillainStore from "./../../stores/VillainStore";
 
@@ -7,26 +6,21 @@ import { NavLink, Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import { render } from "react-dom";
+import { IVillain } from "../../types/villain.type";
 
 export interface VillainsProps {
   VillainStore: typeof VillainStore;
 }
 
 export interface VillainsState {
-  villain: VillainModel;
+  villain: IVillain;
   isShowNewItemForm: boolean;
 }
 
 class Villains extends React.Component<VillainsProps, VillainsState> {
   state = {
     isShowNewItemForm: false,
-    villain: {
-      id: "",
-      firstName: "",
-      lastName: "",
-      house: "",
-      knownAs: ""
-    } as VillainModel
+    villain: {} as IVillain
   };
 
   async componentDidMount() {
