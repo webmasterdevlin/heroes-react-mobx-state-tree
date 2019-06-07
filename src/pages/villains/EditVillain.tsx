@@ -29,8 +29,8 @@ class EditVillain extends React.Component<EditVillainProps, EditVillainState> {
 
   async componentDidMount() {
     await VillainStore.loadVillain(this.props.match.params.id);
-    console.log("SELECTED_Villain", VillainStore.selectedVillain);
-    this.setState({ Villain: VillainStore.selectedVillain });
+    console.log("SELECTED_Villain", VillainStore.villain);
+    this.setState({ Villain: VillainStore.villain });
   }
 
   handleInputChange = ({

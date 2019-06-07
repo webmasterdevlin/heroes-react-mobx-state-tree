@@ -1,6 +1,6 @@
-import { BaseUrl } from "../utils/constants";
+import { BaseUrl } from "../utils/api-config";
 import { HeroModel } from "../models/hero.model";
-import http from "./http-service";
+import http from "../utils/http-service";
 
 export async function getHeroes(): Promise<any> {
   return await http.get(BaseUrl.heroes);

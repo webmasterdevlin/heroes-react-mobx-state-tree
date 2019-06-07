@@ -7,28 +7,20 @@ import {
   updateVillain
 } from "./VillainService";
 import makeInspectable from "mobx-devtools-mst";
-import { VillainProperties } from "../models/types/villain.properties";
+import { VillainType, VillainInitialState } from "../types/villain.type";
 
-export const Villain = types.model("Villain", VillainProperties);
+export const Villain = types.model("Villain", VillainType);
 
 const VillainStore = types
   .model("VillainStore", {
     villains: types.optional(types.array(Villain), []),
-    villain: types.model("Villain", VillainProperties),
+    villain: types.model("Villain", VillainType),
     error: types.string
   })
   .views(self => ({
     // computed part of Mobx
     get villainsCount() {
       return self.villains.length;
-    },
-
-    get selectedVillain() {
-      return self.villain;
-    },
-
-    get allVillains() {
-      return self.villains;
     }
   }))
   .actions(self => ({
@@ -77,13 +69,7 @@ const VillainStore = types
   }))
   .create({
     villains: [],
-    villain: {
-      id: "",
-      firstName: "",
-      lastName: "",
-      house: "",
-      knownAs: ""
-    },
+    villain: VillainInitialState,
     error: ""
   });
 

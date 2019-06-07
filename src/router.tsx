@@ -5,7 +5,7 @@ import EditHero from "./pages/heroes/EditHero";
 import Villains from "./pages/villains/Villains";
 import EditVillain from "./pages/villains/EditVillain";
 
-import {createBrowserHistory} from "history";
+import { createBrowserHistory } from "history";
 import { RouterStore, syncHistoryWithStore } from "mobx-react-router";
 import { Provider } from "mobx-react";
 import HeroStore from "./stores/HeroStore";

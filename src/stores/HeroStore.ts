@@ -16,31 +16,20 @@ import {
 
 import makeInspectable from "mobx-devtools-mst";
 import { HeroModel } from "../models/hero.model";
-import {
-  HeroSnapshot,
-  HeroProperties
-} from "./../models/types/hero.properties";
+import { HeroType, HeroInitialState } from "../types/hero.type";
 
-export const Hero = types.model("Hero", HeroProperties);
+export const Hero = types.model("Hero", HeroType);
 
 const HeroStore = types
   .model("HeroStore", {
     heroes: types.optional(types.array(Hero), []),
-    hero: types.model("Hero", HeroProperties),
+    hero: types.model("Hero", HeroType),
     error: types.string
   })
   .views(self => ({
     // computed part of Mobx
     get heroesCount() {
       return self.heroes.length;
-    },
-
-    get selectedHero() {
-      return self.hero;
-    },
-
-    get allHeroes() {
-      return self.heroes;
     }
   }))
   .actions(self => ({
@@ -91,7 +80,7 @@ const HeroStore = types
   }))
   .create({
     heroes: [],
-    hero: HeroSnapshot,
+    hero: HeroInitialState,
     error: ""
   });
 

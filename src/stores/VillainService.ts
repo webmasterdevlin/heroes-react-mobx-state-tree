@@ -1,5 +1,5 @@
-import { BaseUrl } from "../utils/constants";
-import http from "./http-service";
+import { BaseUrl } from "../utils/api-config";
+import http from "../utils/http-service";
 import { VillainModel } from "../models/villain.model";
 
 export async function getVillains(): Promise<any> {

@@ -75,7 +75,7 @@ class Villains extends React.Component<VillainsProps, VillainsState> {
   };
 
   public render() {
-    const { allVillains, error } = VillainStore;
+    const { villains, error } = VillainStore;
     return (
       <>
         <NewItemForm
@@ -92,7 +92,7 @@ class Villains extends React.Component<VillainsProps, VillainsState> {
             Something wrong happened: {toJS(error)}
           </div>
         )}
-        {allVillains.map(item => (
+        {villains.map(item => (
           <div key={item.id} className="card mt-3" style={{ width: "auto" }}>
             <div className="card-header">
               <h3 className="card-title">

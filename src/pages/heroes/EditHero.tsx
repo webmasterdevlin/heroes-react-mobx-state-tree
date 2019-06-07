@@ -29,7 +29,7 @@ class EditHero extends React.Component<EditHeroProps, EditHeroState> {
 
   async componentDidMount() {
     await HeroStore.loadHero(this.props.match.params.id);
-    this.setState({ hero: HeroStore.selectedHero });
+    this.setState({ hero: HeroStore.hero });
   }
 
   handleInputChange = ({
