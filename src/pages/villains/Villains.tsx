@@ -1,11 +1,9 @@
 import * as React from "react";
 import NewItemForm from "../../common-components/NewItemForm";
 import VillainStore from "./../../stores/VillainStore";
-
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
-import { render } from "react-dom";
 import { IVillain } from "../../types/villain.type";
 
 export interface VillainsProps {
@@ -77,6 +75,8 @@ class Villains extends React.Component<VillainsProps, VillainsState> {
           handleOnChange={this.onChange}
           handleOnSubmit={this.onSubmit}
           handleShowNewItemForm={this.showNewItemForm}
+          buttonText={VillainStore.isLoading ? "Sending..." : "Save"}
+          disableButton={!!VillainStore.isLoading}
         />
         {error && (
           <div

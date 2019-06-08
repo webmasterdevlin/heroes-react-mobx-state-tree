@@ -73,6 +73,8 @@ class Heroes extends React.Component<Props, State> {
           handleOnChange={this.onChange}
           handleOnSubmit={this.onSubmit}
           handleShowNewItemForm={this.showNewItemForm}
+          buttonText={HeroStore.isLoading ? "Sending..." : "Save"}
+          disableButton={!!HeroStore.isLoading}
         />
         {error && (
           <div
